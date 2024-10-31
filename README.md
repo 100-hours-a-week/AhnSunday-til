@@ -3,3 +3,5 @@
 
 # ‼️주의<br>
 communityBE와 같이 실행해야합니다!
+실행 명령어 : npm run dev
+(추후 수정예정)
