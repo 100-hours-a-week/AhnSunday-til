@@ -1,0 +1,274 @@
+header {
+    border-bottom: 1px solid #000;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 텍스트를 가운데에 */
+}
+html{
+    background-color: #F4F5F7;
+}
+@font-face {
+    font-family : 'flightSans';
+    src : url(../font/FlightSans-Title.woff2)
+}
+@font-face {
+    font-family : 'Pretendard';
+    src : url(../font/FlightSans-Regular.woff2)
+}
+/*------------- 헤더 -------------*/
+.headers {
+    height: 104px;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 텍스트를 가운데에 */
+    position: relative;
+    width: 392px;
+}
+h1 {
+    font-family: "flightSans";
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 32px;
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); /* 가로 중앙에 위치 */
+}
+.normalProfile {
+    position: absolute;
+    right: 8px; /* 프로필을 오른쪽에 고정 */
+    display: flex;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+}
+.profileContainer {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+}
+.profile {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.box {
+    width: 36px;
+    height: 36px; 
+    border-radius: 50%;
+    overflow: hidden;
+}
+/* 드롭다운 */
+.dropdown {
+    display: none; /* 기본적으로 숨김 */
+    flex-direction: column;
+    position: absolute;
+    top: 40px; /* 프로필 이미지 아래 위치 */
+    right: 0;
+    background-color: #E9E9E9;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    min-width: 140px;
+    z-index: 1;
+}
+
+.normalProfile:hover .dropdown {
+    display: block; /* hover 시 드롭다운 표시 */
+}
+
+.dropdown p {
+    padding: 10px 20px;
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+    text-align: left;
+    cursor: pointer;
+}
+
+.dropdown p:hover {
+    background-color:#FFFFFF; /* hover 시 배경색 */
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+/*------------- 메인 -------------*/
+h4 {
+    font-family: Pretendard;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 38.19px;
+    text-align: center;
+
+}
+.box2 {
+    width: 149px;
+    height: 149px; 
+    border-radius: 50%;
+    overflow: hidden;
+}
+main {
+    max-width: 392px;
+    margin: auto;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+}
+/* 입력 필드 */
+.inputText {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    
+}
+/* 개별 입력 필드 */
+.inputText input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+    border-radius: 4px;
+
+}
+/* 수정하기 버튼 */
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+}
+/* 로그인 버튼 스타일 */
+.submitButton {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    background-color: #ACA0EB; /* 기본 색상 */
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease; /* 색상 변경 효과 */
+}
+.error {
+    color: red;
+    font-size: 0.9em;
+}
+
+/* 회원탈퇴 하러가기 버튼 */
+.deleteMember {
+    margin: 15px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    background-color: #F4F5F7;
+}
+
+.bottom {
+    display: flex;                 
+    justify-content: center;       
+    align-items: center;           
+    flex-direction: column;
+}
+.finish {
+    width: 102px;
+    padding: 10px;
+    height: 46;
+    border-radius: 30px;          
+    background-color: #ACA0EB;    
+    color: white;  
+}
+/* 수정완료 버튼 */
+.finishBnt {
+    width: 102px;
+    height: 46;
+    padding: 10px;
+    border-radius: 30px;
+    font-size: 18pt;
+}
+
+.modalDiv {
+    font-family: Arial, sans-serif;
+    background-color: #F4F5F7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* 모달 배경 */
+.modal-overlay {
+    display: none; /* 처음에는 숨김 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+/* 모달 창 스타일 */
+.modal {
+    width: 300px;
+    height: 150px;
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 모달 텍스트 */
+.modal h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.modal p {
+    font-size: 14px;
+    color: #666;
+    margin-top: 0;
+}
+
+/* 버튼 스타일 */
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    background-color: none;
+}
+
+.modal-button {
+    width: 127px;
+    height: 44px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.modal-button.cancel {
+    background-color: #242424;
+    color: #FFFFFF;
+}
+
+.modal-button.confirm {
+    background-color: #C4A5FA;
+    color: #000000;
+}
+

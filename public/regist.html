@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./css/regist.css">
+    <title>community</title>
+</head>
+<body>
+    <header>
+        <div class="headerContent">
+            <div class="headerContainer">
+                <a id="goBack" class="backButton"><</a>
+            </div>
+            <div class="headerBox">
+                <h1>아무 말 대잔치</h1>
+            </div>
+        </div>
+    </header>
+    <main>
+        <h2>회원가입</h2>
+        <div class="inputText">
+            <div>
+                <p>프로필 사진</p>
+                <div class="profileContainer">
+                    <div class="box" id="profileBox" style="background: #BDBDBD;">
+                        <img class="profile" id="profileImage" src="" alt="">
+                    </div>
+                <input type="file" id="fileInput" accept="image/*" style="display: none;"> <!-- 파일 입력 숨김 -->
+                </div>
+            </div>
+            <div>
+                <p>이메일*</p>
+                <input type="email" id="email" name="email" placeholder="이메일을 입력하세요" required>
+                <div id="emailError" class="error"></div>
+            </div>
+            <div>
+                <p>비밀번호*</p>
+                <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요" required>
+                <div id="passwordError" class="error"></div>
+            </div>
+            <div>
+                <p>비밀번호 확인*</p>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="비밀번호를 한번 더 입력하세요" required>
+                <div id="confirmPasswordError" class="error"></div>
+            </div>
+            <div>
+                <p>닉네임*</p>
+                <input type="text" id="nickname" name="nickname" placeholder="닉네임을 입력하세요" required>
+                <div id="nicknameError" class="error"></div>
+            </div>
+        </div>
+        <input type="submit" value="회원가입" class="submitButton" id="registButton">
+        <div class="login"><a href="login.html">로그인하러 가기</a></div>
+    </main>
+    <script src="/js/registManager.js"></script>
+    <script src="/js/common.js"></script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+html{
+    background-color: #F4F5F7;
+}
+@font-face {
+    font-family : 'flightSans';
+    src : url(../font/FlightSans-Title.woff2)
+}
+@font-face {
+    font-family : 'Pretendard';
+    src : url(../font/FlightSans-Regular.woff2)
+}
+/* 중앙 정렬 */
+header {
+    border-bottom: 1px solid #000;
+    height: 104px;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 텍스트를 가운데에 */
+    position: relative;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* 헤더 */
+h1 {
+    font-family: "flightSans";
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 32px;
+    position: absolute;
+    margin: 0;
+    text-align: center;
+}
+
+/* 메인 영역 */
+main {
+    max-width: 392px;
+    margin: auto;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* 로그인 제목 */
+.login {
+    font-family: "Pretendard";
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 38px;
+    margin-bottom: 20px;
+}
+
+/* 입력 필드 */
+.inputText {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* 개별 입력 필드 */
+.inputText input {
+    border-radius: 16px;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+/* 로그인 버튼 */
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+}
+/* 에러 메시지 스타일 */
+.error {
+    color: red;
+    font-size: 14px;
+    margin-top: 3px;
+    display: none; /* 처음에는 숨김 */
+}
+
+/* 로그인 버튼 스타일 */
+.submitButton {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    background-color: #7F6AEE; /* 기본 색상 */
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 16px;
+    transition: background-color 0.3s ease; /* 색상 변경 효과 */
+}
+/* 회원가입 버튼 */
+#registButton {
+    border-radius: 16px;
+    width: 50%;
+    padding: 10px;
+    font-size: 18px;
+    font-family: "Pretendard";
+    font-weight: 700;
+    color: #7F6AEE; 
+    background-color: transparent; 
+    border: 2px solid #7F6AEE; 
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease; /* 효과 추가 */
+    margin-top: 20px;
+}
+#registButton:hover {
+    background-color: #7F6AEE;
+    color: white;
+}
+#registButton:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(127, 106, 238, 0.4); /* 포커스 시 아웃라인 효과 */
+}

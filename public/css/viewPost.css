@@ -1,0 +1,436 @@
+html{
+    background-color: #F4F5F7;
+}
+@font-face {
+    font-family : 'flightSans';
+    src : url(../font/FlightSans-Title.woff2)
+}
+@font-face {
+    font-family : 'Pretendard';
+    src : url(../font/FlightSans-Regular.woff2)
+}
+/*------------- 헤더 -------------*/
+header {
+    border-bottom: 1px solid #000;
+    height: 104px;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 텍스트를 가운데에 */
+    position: relative;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+a {
+    text-decoration: none;
+    color: #000;
+}
+.headerContent {
+    justify-content: space-between; 
+    display: flex; 
+    align-items: center; 
+    width: 600px;
+}
+.headerContainer {
+    justify-content: center; 
+    display: flex; 
+    align-items: center; 
+    width: 50px; 
+}
+.headerBox {
+    height: 104px;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 텍스트를 가운데에 */
+    position: relative;
+    width: 392px;
+}
+.backButton {
+    font-size: 24px; 
+    text-decoration: none; 
+    cursor: pointer;
+    width: auto;
+}
+h1 {
+    font-family: "flightSans";
+    width: 392px;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 32px;
+    text-align: center;
+}
+.normalProfile {
+    display: flex;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+}
+.profileContainer {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+
+}
+.profile {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+}
+.box {
+    width: 36px;
+    height: 36px; 
+    border-radius: 50%;
+    overflow: hidden;
+}
+/* 드롭다운 */
+.dropdown {
+    display: none; /* 기본적으로 숨김 */
+    flex-direction: column;
+    position: relative;
+    top: 75px; /* 위치를 원하는 값으로 조정 */
+    right: 30%px;
+    background-color: #E9E9E9;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    min-width: 140px;
+    z-index: 1;
+}
+.normalProfile:hover .dropdown {
+    display: block; /* hover 시 드롭다운 표시 */
+    position: absolute;
+}
+.dropdown p {
+    padding: 10px 20px;
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+    text-align: left;
+    cursor: pointer;
+}
+.dropdown p:hover {
+    background-color:#FFFFFF; /* hover 시 배경색 */
+}
+.headerContainer a {
+    text-decoration: none;
+    color: #000;
+}
+/* ----------- 메인 -------------- */
+main {
+    max-width: 600px;
+    margin: auto;
+    box-sizing: border-box;
+    text-align: center;
+}
+.post {
+    background-color: #F4F5F7;
+    margin-bottom: 10px;
+}
+.title {
+    height: 101px;
+    display: flex;
+    flex-direction: column;
+}
+.titleTxt {
+    width: auto; 
+    height: 40px; 
+    margin: 8px;
+    margin-left: 20px;
+    font-size: 15pt;
+    text-align: left; 
+    display: inline-block;
+}
+#date {
+    width: 300px;
+    text-align: right;
+    margin-right: 20px;
+}
+/* 작성자 */
+.user {
+    display: flex;
+    margin: 15px;
+    text-align: center;
+}
+.profileContainer{
+    margin: 8px;
+}
+.user .nickname {
+    margin-left: 10px;
+    text-align: center;
+    justify-content: center;
+}
+.userInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+/* --------------- 게시물 --------------- */
+.user {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    border-bottom: 1px solid #00000029; /* 하단 테두리 */
+}
+.nickname {
+    display: inline-block;
+    margin: 0px;
+    align-items: left;
+}
+.nickname p {
+    display: inline;
+    margin-right: 20px;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+    border-bottom: 1px solid #00000029; /* 하단 테두리 */
+}
+.imgBox {
+    width: 544px;
+    height: 306px;
+    overflow: hidden;
+    margin:0 auto;
+}
+.postImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.contentTxt {
+    margin-top: 20px;
+    width: 544px;
+    height: 231px;
+    overflow: hidden; /* 컨테이너 높이를 넘어가는 텍스트 숨기기 */
+    word-wrap: break-word; /* 단어가 길 경우 줄바꿈 */
+    word-break: break-all; /* 글자 단위로 줄바꿈 */
+    white-space: normal;
+}
+#text {
+    font-family: Pretendard;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 21.15px;
+    text-align: left;
+
+    width: 100%;
+    height: 100%; 
+    overflow: hidden; /* 텍스트가 영역을 넘어가면 숨기기 */
+    white-space: normal;
+}
+/* postElement */
+.contentElement {
+    display: flex;
+    width: 400px;
+    margin: 20px;
+    align-items: center;
+    justify-content: center; /* 요소들을 중앙에 배치 */
+    gap: 10px; /* 요소 간 간격 설정 */
+}
+.elements {
+    width: 116px;
+    height: 77px;
+    background-color: #D9D9D9;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 요소 내부 텍스트 가운데 정렬 */
+    align-items: center; /* 요소 내부 텍스트 가운데 정렬 */
+}
+.elements p {
+    font-family: Pretendard;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 25.04px;
+    text-align: center;
+    margin-top: 3px;
+    margin: 0; /* 기본 마진 제거 */
+}
+/* ---------- 댓글입력 창 ---------------- */
+.inputComment {
+    margin-top: 20px;
+    height: 205px;
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    border-radius: 16px;
+    background-color: #FFF;
+}
+.inputBox {
+    width: 600px;
+    height: 80px;
+    border-radius: 16px 16px 0px 0px;
+    border-bottom: 1px solid #00000029; /* 하단 테두리 */
+}
+#inputComment {
+    width: 530px;
+    margin-top: 25px;
+    border: none;
+}
+/* 댓글등록 버튼 */
+.commentBtn {
+    display: flex;
+    justify-content: right;
+    border-radius: 20px;
+    width: 138px;
+    height: 39px;
+    background-color: #ACA0EB;
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    margin: 8px;
+    line-height: 25.04px;
+    text-align: center;
+}
+/* ---------- 수정/삭제 버튼 ------------- */
+.edit {
+    display: flex;
+    margin-left: auto; /* 오른쪽으로 이동 */
+}
+.bnt{
+    background-color: #F4F5F7;
+    font-size: 14px;
+
+    display: flex;
+    width: 60px;
+    height: 30px;
+    text-align: center;
+    align-items: center; /* 세로 중앙 정렬 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    border-radius: 8px;
+    border: 1px solid #ACA0EB;
+    margin: 5px;
+}
+/* ------------ 댓글 ---------------------- */
+.comments {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* 댓글을 시작 부분에 정렬 */
+    width: 100%; 
+}
+.comment {
+    display: flex;
+    margin-top: 10px;
+    width: 600px; /* 댓글이 부모 너비를 전체 차지 */
+    align-items: flex-start; /* 상단 정렬 */
+    justify-content: space-between; /* 요소 사이에 공간 배치 */
+    padding: 10px 0; /* 위아래 여백 추가 */
+}
+.profileSection {
+    display: flex;
+}
+.profileSection .normalProfile {
+    justify-content: center;
+}
+#userTxt {
+    font-family: Pretendard;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 19.5px;
+    text-align: left;
+}
+.userInfo2 {
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* 댓글 내용이 가능한 한 많은 공간을 차지하도록 설정 */
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px; /* 버튼과의 간격 조정 */
+}
+.author {
+    display: flex;
+    width: 400px;
+    height: 35px;
+    text-align: center;
+
+}
+.author #date {
+    text-align: center;    
+}
+.commentContents{
+    text-align: left;
+}
+
+.modalDiv, .modalDiv2 {
+    font-family: Arial, sans-serif;
+    background-color: #F4F5F7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* 모달 배경 */
+.modal-overlay, .modal-overlay2 {
+    display: none; /* 처음에는 숨김 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+/* 모달 창 스타일 */
+.modal {
+    width: 300px;
+    height: 150px;
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 모달 텍스트 */
+.modal h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.modal p {
+    font-size: 14px;
+    color: #666;
+    margin-top: 0;
+}
+
+/* 버튼 스타일 */
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    background-color: none;
+}
+
+.modal-button {
+    width: 127px;
+    height: 44px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.modal-button.cancel {
+    background-color: #242424;
+    color: #FFFFFF;
+}
+
+.modal-button.confirm {
+    background-color: #C4A5FA;
+    color: #000000;
+}
