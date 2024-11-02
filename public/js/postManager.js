@@ -4,13 +4,13 @@ document.addEventListener("DOMContentLoaded", function () {
     
     // 게시물 작성 버튼 클릭 시 writePost.html로 이동
     postBtn.addEventListener("click", function () {
-        window.location.href = "/writePost";
+        window.location.href = "./writePost.html";
     });
     
     // 각 게시물 클릭 시 writePost.html로 이동
     viewPost.forEach(function (viewPost) {
         viewPost.addEventListener("click", function () {
-            window.location.href = "/viewPost";
+            window.location.href = "./viewPost.html";
         });
     });
 });
