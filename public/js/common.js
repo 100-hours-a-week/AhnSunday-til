@@ -1,4 +1,3 @@
-// common.js 또는 postManager.js 파일에서 다음 코드를 사용하세요.
 document.addEventListener("DOMContentLoaded", function () {
     const dropdownMenu = document.getElementById("dropdownMenu");
     
