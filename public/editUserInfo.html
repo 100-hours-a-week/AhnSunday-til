@@ -32,7 +32,8 @@
                 <p>프로필 사진</p>
                 <div class="profileContainer">
                     <div class="box2" id="profileBox" style="background: #BDBDBD;">
-                        <img class="profile" id="profileImage" src="" alt="">
+                        <img class="profile2" id="profileImage" src="./images/sample.jpeg" alt="">
+                        <button class="editProfile" id="editProfile">변경</button>
                     </div>
                     <input type="file" id="fileInput" accept="image/*" style="display: none;"> <!-- 파일 입력 숨김 -->
                 </div>
@@ -53,11 +54,9 @@
             <input type="submit" class="submitButton" value="수정하기">
             <button class="deleteMember" onclick="openModal()">회원 탈퇴</button>
             <div class="finish">
-                <div class="finishBtn">수정완료</button>
-                </div>
+                <div class="finishBtn">수정완료</div>
             </div>
     </main>
-    <script src="./js/common.js"></script>
     <!-- 모달 구조 -->
     <div class="modalDiv">
         <div class="modal-overlay" id="modalOverlay">
@@ -90,8 +89,8 @@
             
         }
     </script>
-    <script src="./js/userManager.js"></script>
     <script src="./js/common.js"></script>
+    <script src="./js/userManager.js"></script>
 </body>
 
 </html>
