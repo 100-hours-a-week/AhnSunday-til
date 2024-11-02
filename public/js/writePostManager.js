@@ -10,10 +10,8 @@ document.addEventListener("DOMContentLoaded", function() {
     // 제목과 내용이 모두 입력될 때 버튼 색상 변경 및 활성화
     function toggleButtonState() {
         if (titleInput.value.trim() !== "" && contentInput.value.trim() !== "") {
-            submitButton.disabled = false; // 버튼 활성화
             submitButton.style.backgroundColor = "#7F6AEE"; // 색상 변경
         } else {
-            submitButton.disabled = true; // 버튼 비활성화
             submitButton.style.backgroundColor = "#ACA0EB"; // 기본 색상으로 복원
         }
     }
@@ -30,6 +28,9 @@ document.addEventListener("DOMContentLoaded", function() {
             errorText.style.display = "block"; // 오류 메시지 보이기
         } else {
             errorText.style.display = "none"; // 오류 메시지 숨기기 (모든 조건 충족 시)
+            console.log("게시글 작성 완료버튼 클릭");
+            // TODO : 게시글 add하는 fetch 보내기
+            window.location.href = "../public/posts.html";
         }
     });
 });
