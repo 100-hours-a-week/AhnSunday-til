@@ -61,3 +61,20 @@ document.querySelector(".submitButton").addEventListener("click", function (even
     //     errorElement.textContent = "*서버 오류가 발생했습니다."; // 서버 오류 처리
     // });
 });
+// 모달 열기 함수
+function openModal() {
+    document.getElementById("modalOverlay").style.display = "flex";
+}
+
+// 모달 닫기 함수
+function closeModal() {
+    document.getElementById("modalOverlay").style.display = "none";
+}
+
+// 회원 탈퇴 확인 함수
+function confirmDelete() {
+    alert("회원 탈퇴가 완료되었습니다.");// NOTE : 쓸까 말까
+    // 실제 탈퇴 로직
+    closeModal();
+    
+}
