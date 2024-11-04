@@ -155,6 +155,7 @@ main {
     margin-top: 8px;
     color: red;
     font-size: 0.9em;
+    visibility: hidden;
 }
 p {
     font-family: Pretendard;

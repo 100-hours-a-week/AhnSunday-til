@@ -4,9 +4,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const submitButton = document.querySelector(".submitButton");
     const errorText = document.getElementById("errorMessage");
 
-    // 초기 상태에서 오류 메시지 숨김
-    errorText.style.display = "none";
-
     // 제목과 내용이 모두 입력될 때 버튼 색상 변경 및 활성화
     function toggleButtonState() {
         if (titleInput.value.trim() !== "" && contentInput.value.trim() !== "") {
@@ -25,9 +22,9 @@ document.addEventListener("DOMContentLoaded", function() {
         if (titleInput.value.trim() === "" || contentInput.value.trim() === "") {
             event.preventDefault(); // 기본 동작 방지
             errorText.innerText = "*제목, 내용을 모두 작성해주세요"; // 경고 메시지
-            errorText.style.display = "block"; // 오류 메시지 보이기
+            errorText.style.visibility = "visible"; // 오류 메시지 보이기
         } else {
-            errorText.style.display = "none"; // 오류 메시지 숨기기 (모든 조건 충족 시)
+            errorText.style.visibility = "hidden"; // 오류 메시지 숨기기 (모든 조건 충족 시)
             console.log("게시글 작성 완료버튼 클릭");
             // TODO : 게시글 add하는 fetch 보내기
             window.location.href = "../public/posts.html";
