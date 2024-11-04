@@ -64,7 +64,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         'Content-Type': 'application/json'
                     }
                 });
-
                 if (uploadResponse.ok) {
                     const result = await uploadResponse.json();
                     if (result.message === "프로필 이미지 변경 성공") {
@@ -111,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const userData = {
             newNickname: nickname
         };
-
+        // NOTE : 그럼 클라이언트json파일에도 url수정 들어가야하지않나?
         try {
             const nicknameResponse = await fetch(`http://localhost:3000/users/nicknameCheck/${userId}`, {
                 method: 'PATCH',

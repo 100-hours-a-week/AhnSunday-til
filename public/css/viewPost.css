@@ -340,11 +340,10 @@ main {
     flex: 1; /* 댓글 내용이 가능한 한 많은 공간을 차지하도록 설정 */
     display: flex;
     flex-direction: column;
-    margin-right: 10px; /* 버튼과의 간격 조정 */
 }
 .author {
     display: flex;
-    width: 400px;
+    width: 410px;
     height: 35px;
     text-align: center;
 
