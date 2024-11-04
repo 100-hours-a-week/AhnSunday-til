@@ -7,6 +7,7 @@
 - posts
 - editPost
 - editUserInfo
+- viewPost
 
 # ‼️주의<br>
 communityBE와 같이 실행해야합니다!
