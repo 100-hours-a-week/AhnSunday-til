@@ -154,7 +154,6 @@ document.addEventListener("DOMContentLoaded", function () {
         // 프로필 이미지 업로드
         const formData = new FormData();
         formData.append("image", profileImageFile); // 선택한 이미지 파일 추가
-
         try {
             const uploadResponse = await fetch('http://localhost:2000/upLoadProfile', {
                 method: 'POST',
@@ -178,7 +177,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 profileImage: profileImageUrl // 이미지 URL 저장
             };
 
-            const response = await fetch('http://localhost:3000/users/regist', {
+            const response = await fetch('http://localhost:3000/auth/regist', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(userData)

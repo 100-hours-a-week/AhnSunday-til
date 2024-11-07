@@ -65,6 +65,7 @@ const upload = multer({ storage });
 app.post('/upLoadProfile', upload.single('image'), (req, res) => {
     if (req.file) {
         const imageUrl = `http://localhost:${PORT}/images/${req.file.filename}`;
+        console.log(imageUrl)
         res.json({ imageUrl });
     } else {
         res.status(400).send('파일 업로드 실패');
@@ -73,11 +74,6 @@ app.post('/upLoadProfile', upload.single('image'), (req, res) => {
 
 // 이미지 파일 제공
 app.use('/images', express.static(imageUploadPath));
-
-// 페이지 라우트 설정
-app.get('/regist', (req, res) => {
-    res.sendFile(path.join(__dirname, '/regist.html'));
-});
 
 // 서버 시작
 app.listen(PORT, () => {
