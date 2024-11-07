@@ -83,33 +83,21 @@ document.addEventListener("DOMContentLoaded", function () {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({
-                        email: email,
-                        password: password
-                    })
+                    body: JSON.stringify({ email, password })
                 });
 
                 const result = await response.json();
 
+                // 응답에 따라 처리
                 if (response.ok) {
                     // 로그인 성공
                     console.log(result.message); // "로그인 성공"
-                    passwordError.textContent = ""; // 에러 메시지 초기화
-                    passwordError.style.visibility = "hidden"; // 에러 메시지 숨김
-
                     // 응답받은 사용자 정보 처리
-                    const userData = result.data;
-                    localStorage.setItem('user', JSON.stringify(userData)); // 사용자 데이터 저장
-
-                    // 페이지 이동
+                    localStorage.setItem('user', JSON.stringify(result.data)); // 사용자 데이터 저장
                     window.location.href = "./posts.html"; // 원하는 페이지로 이동
-                } else if (response.status === 401) {
-                    // 이메일 또는 비밀번호가 올바르지 않은 경우
-                    passwordError.textContent = "*이메일 또는 비밀번호가 올바르지 않습니다.";
-                    passwordError.style.visibility = "visible";
-                } else if (response.status === 500) {
-                    // 서버 오류
-                    passwordError.textContent = "*서버에 오류가 발생했습니다. 다시 시도해주세요.";
+                } else {
+                    // 실패 시 메시지 표시
+                    passwordError.textContent = result.message;
                     passwordError.style.visibility = "visible";
                 }
             } catch (error) {

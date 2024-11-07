@@ -8,9 +8,9 @@ const PORT = 2000;
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.get(['/login', '/'], (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public/login.html'));
-// });
+app.get(['/login', '/'], (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/login.html'));
+});
 app.get('/regist', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/regist.html'));
 });
@@ -76,7 +76,7 @@ app.use('/images', express.static(imageUploadPath));
 
 // 페이지 라우트 설정
 app.get('/regist', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/regist.html'));
+    res.sendFile(path.join(__dirname, '/regist.html'));
 });
 
 // 서버 시작
