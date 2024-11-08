@@ -1,7 +1,3 @@
-document.getElementById('goBack').addEventListener('click', () => {
-    console.log("뒤로가기 클릭");
-    window.history.back(); // 이전 페이지로 이동
-});
 // 모달 열기 함수
 function isDeleteComment()  {
     document.getElementById("modalOverlay2").style.display = "flex";

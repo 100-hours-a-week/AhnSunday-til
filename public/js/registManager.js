@@ -5,7 +5,7 @@ document.getElementById('goBack').addEventListener('click', () => {
 
 document.getElementById('loginButton').addEventListener('click', () => {
     console.log("로그인하러가기 클릭");
-    window.location.href = "./login.html";
+    window.location.href = "./login";
 });
 
 // 프로필 설정

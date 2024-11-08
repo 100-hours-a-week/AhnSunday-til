@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.log(result.message); // "로그인 성공"
                     // 응답받은 사용자 정보 처리
                     localStorage.setItem('user', JSON.stringify(result.data)); // 사용자 데이터 저장
-                    window.location.href = "./posts.html"; // 원하는 페이지로 이동
+                    window.location.href = "./posts"; // 원하는 페이지로 이동
                 } else {
                     // 실패 시 메시지 표시
                     passwordError.textContent = result.message;
@@ -111,5 +111,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.getElementById('registButton').addEventListener('click', () => {
     console.log("회원가입 클릭")
-    window.location.href = "./regist.html"
+    window.location.href = "./regist"
 });

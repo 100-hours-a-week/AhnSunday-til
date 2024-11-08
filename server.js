@@ -20,12 +20,12 @@ app.get('/regist', (req, res) => {
 // app.get('/editUserInfo', (req, res) => {
 //     res.sendFile(path.join(__dirname, 'public/editUserInfo.html'));
 // });
-// app.get('/posts', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public/posts.html'));
-// });
-// app.get('/viewPost', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public/viewPost.html'));
-// });
+app.get('/posts', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/posts.html'));
+});
+app.get('/viewPost', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/viewPost.html'));
+});
 // app.get('/editPost', (req, res) => {
 //     res.sendFile(path.join(__dirname, 'public/editPost.html'));
 // });

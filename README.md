@@ -4,6 +4,8 @@
 ### 작업현황(BE와 연결)<br>
 - login
 - regist
+- posts
+- viewPost(댓글 수정/삭제, 게시물 수정/삭제 구현 필요)
 
 # ‼️주의<br>
 communityBE와 같이 실행해야합니다!

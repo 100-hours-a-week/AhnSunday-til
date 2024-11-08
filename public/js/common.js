@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const dropdownMenu = document.getElementById("dropdownMenu");
     const normalProfile = document.querySelector(".normalProfile");
+    const goBackButton = document.getElementById('goBack');
 
     // 초기 상태: 드롭다운 메뉴 숨기기
     dropdownMenu.style.display = "none";
@@ -37,4 +38,12 @@ document.addEventListener("DOMContentLoaded", function () {
         event.stopPropagation(); // 클릭 이벤트가 상위로 전파되지 않도록 함
         toggleDropdown();
     });
+
+    // 뒤로가기
+    if (goBackButton) {
+        goBackButton.addEventListener('click', () => {
+            console.log("뒤로가기 클릭");
+            window.history.back(); // 이전 페이지로 이동
+        });
+    }
 });
