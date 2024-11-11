@@ -1,0 +1,81 @@
+document.addEventListener("DOMContentLoaded", function () {
+    const titleInput = document.getElementById("title");
+    const contentInput = document.getElementById("content");
+    const submitButton = document.querySelector(".submitButton");
+    const errorText = document.getElementById("errorMessage");
+
+    // 제목과 내용이 모두 입력될 때 버튼 색상 변경 및 활성화
+    function toggleButtonState() {
+        if (titleInput.value.trim() !== "" && contentInput.value.trim() !== "") {
+            submitButton.style.backgroundColor = "#7F6AEE"; // 활성화 색상
+            submitButton.disabled = false;
+        } else {
+            submitButton.style.backgroundColor = "#ACA0EB"; // 비활성화 색상
+            submitButton.disabled = true;
+        }
+    }
+
+    // 입력 필드에 이벤트 리스너 추가
+    titleInput.addEventListener("input", toggleButtonState);
+    contentInput.addEventListener("input", toggleButtonState);
+
+    // 게시글 작성 요청 함수
+    async function submitPost() {
+        const title = titleInput.value.trim();
+        const content = contentInput.value.trim();
+        // NOTE: 예시로 사용
+        const userId = 1; 
+        const date = formatDateToCustomFormat(new Date()); 
+        // NOTE: 이미지 업로드 보류
+        const imageUrl = null; 
+
+        const newPost = {
+            userId: userId,
+            title: title,
+            content: content,
+            date: date,
+            imageUrl: imageUrl,
+        };
+
+        try {
+            const response = await fetch("http://localhost:3000/posts", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newPost),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                console.log(data.message);
+                window.location.href = "/posts"; // 작성 완료 시 페이지 이동
+            } else {
+                console.error("게시글 작성 실패:", data.message);
+                errorText.innerText = "*서버에 오류가 발생했습니다. 다시 시도해주세요.";
+                errorText.style.visibility = "visible";
+            }
+        } catch (error) {
+            console.error("게시글 작성 중 오류 발생:", error);
+            errorText.innerText = "*서버에 오류가 발생했습니다. 다시 시도해주세요.";
+            errorText.style.visibility = "visible";
+        }
+    }
+
+    // 버튼 클릭 시 입력 확인 및 게시글 작성 요청
+    submitButton.addEventListener("click", function (event) {
+        if (titleInput.value.trim() === "" || contentInput.value.trim() === "") {
+            event.preventDefault(); // 기본 동작 방지
+            errorText.innerText = "*제목, 내용을 모두 작성해주세요";
+            errorText.style.visibility = "visible";
+        } else {
+            errorText.style.visibility = "hidden";
+            submitPost(); // 게시글 작성 함수 호출
+        }
+    });
+});
+
+// 뒤로가기 버튼 클릭 시 이전 페이지로 이동
+document.getElementById("goBack").addEventListener("click", () => {
+    console.log("뒤로가기 클릭");
+    window.history.back();
+});

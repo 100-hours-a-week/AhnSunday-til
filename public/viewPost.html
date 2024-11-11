@@ -13,7 +13,7 @@
                 <a id="goBack" class="backButton"><</a>
             </div>
             <div class="headerBox">
-                <h1>아무 말 대잔치</h1>
+                <h1 id="headerBox">아무 말 대잔치</h1>
             </div>
             <div class="normalProfile">
                 <div class="box" style="background: #BDBDBD;">
@@ -47,13 +47,13 @@
                         </div>
                         <!-- 수정 / 삭제 -->
                         <div class="edit">
-                            <button class="bnt">
-                                <div class="commentEditBtn">
+                            <button class="bnt"id="editPostBtn">
+                                <div class="postEditBtn">
                                     <p><strong>수정</strong></p>
                                 </div>
                             </button>
                             <button class="bnt" id="deletePostBtn">
-                                <div class="commentEditBtn">
+                                <div class="postEditBtn">
                                     <p><strong>삭제</strong></p>
                                 </div>
                             </button>
@@ -82,7 +82,7 @@
                 </div>
                 <div class="inputComment">
                     <input type="text" id="inputComment" placeholder="댓글을 남겨주세요!" required>
-                    <input type="submit" value="댓글 등록" class="commentBtn">
+                    <input type="submit" value="댓글 등록" class="commentBtn" onclick="addComment()">
                 </div>
                 <div class="comments" id="commentsContainer"></div>
             </div>
@@ -114,7 +114,7 @@
         </div>
     </div>
     <script src="./js/common.js"></script>
-    <script src="./js/commentManager.js"></script>
     <script src="./js/posts/viewPostManager.js"></script>
+    <script src="./js/posts/commentManager.js"></script>
 </body>
 </html>

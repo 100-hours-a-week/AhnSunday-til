@@ -337,7 +337,7 @@ main {
     width: 410px;
     height: 35px;
     text-align: center;
-
+    justify-content: space-between;
 }
 .author #date {
     text-align: center;    

@@ -9,15 +9,27 @@ document.addEventListener("DOMContentLoaded", function() {
     const postAuthor = document.getElementById("userNickname");
     const postImage = document.getElementById("postImage");
 
+    // 페이지가 로드될 때 특정 게시글의 데이터를 가져오기
+    const urlParams = new URLSearchParams(window.location.search);
+    const postId = urlParams.get('postId');
+
     // 댓글 관련 요소
     const commentsContainer = document.getElementById("commentsContainer");
 
-    // 삭제 버튼에 이벤트 리스너 추가
+    //게시물 삭제 버튼
     const deletePostBtn = document.getElementById("deletePostBtn");
     if (deletePostBtn) {
         deletePostBtn.addEventListener("click", isDeletePost);
     }
 
+    //게시글 수정 버튼
+    const editPostBtn = document.getElementById("editPostBtn");
+    if (editPostBtn) {
+        editPostBtn.addEventListener("click", function() {
+            window.location.href = `/editPost?postId=${postId}`;
+        });
+    }
+    
     // 게시글 상세조회
     async function fetchPostDetails(postId) {
         try {
@@ -33,10 +45,13 @@ document.addEventListener("DOMContentLoaded", function() {
             postContent.innerHTML = postData.content;
             postLikes.innerHTML = postData.likes;
             postViews.innerHTML = postData.views;
-            postComments.innerHTML = postData.commentsCnt;
+            postComments.innerHTML = postData.commentsCnt;  // 댓글 수 표시
             postDate.innerHTML = postData.date;
             postAuthor.innerHTML = postData.author.nickname;
             postImage.src = postData.imageUrl;
+
+            // 댓글 수를 갱신
+            updateCommentCount(postData.commentsCnt);
 
             displayComments(postData.comments);
         } catch (error) {
@@ -51,7 +66,12 @@ document.addEventListener("DOMContentLoaded", function() {
         comments.forEach(comment => {
             const commentElement = document.createElement("div");
             commentElement.classList.add("comment");
-
+            
+            // 각 댓글에 필요한 데이터 속성 추가
+            commentElement.dataset.commentId = comment.commentId;
+            commentElement.dataset.postId = comment.postId;
+            commentElement.dataset.userId = comment.author.userId;
+    
             commentElement.innerHTML = `
                 <div class="profileSection">
                     <div class="normalProfile">
@@ -75,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             <p><strong>수정</strong></p>
                         </div>
                     </div>
-                    <div class="bnt" onclick="isDeleteComment()">
+                    <div class="bnt" onclick="isDeleteComment(this.closest('.comment'))">
                         <div class="commentEditBtn">
                             <p><strong>삭제</strong></p>
                         </div>
@@ -84,11 +104,10 @@ document.addEventListener("DOMContentLoaded", function() {
             `;
             commentsContainer.appendChild(commentElement);
         });
+        updateCommentCount();
     }
+    
 
-    // 페이지가 로드될 때 특정 게시글의 데이터를 가져오기
-    const urlParams = new URLSearchParams(window.location.search);
-    const postId = urlParams.get('postId');
     if (postId) {
         fetchPostDetails(postId);
     } else {
@@ -108,7 +127,36 @@ function closeModal() {
 
 // 게시글 삭제 확인
 function confirmDelete() {
-    alert("게시글 삭제가 완료되었습니다.");
-    closeModal();
-    // 실제 삭제 로직 추가
+    const urlParams = new URLSearchParams(window.location.search);
+    const postId = urlParams.get('postId');
+    
+    if (!postId) {
+        alert("잘못된 게시글 ID입니다.");
+        closeModal();
+        return;
+    }
+    
+    // 백엔드로 삭제 요청 보내기
+    fetch(`http://localhost:3000/posts/${postId}`, {
+        method: "DELETE",
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("서버에 오류가 발생했습니다.");
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.message === "게시물 삭제 성공") {
+            console.log("게시글 삭제가 완료되었습니다.");
+            closeModal();
+            window.location.href = "/posts"; // 메인 페이지로 이동하거나 원하는 페이지로 리디렉션
+        } else {
+            console.log("삭제에 실패했습니다. 다시 시도해주세요.");
+        }
+    })
+    .catch(error => {
+        console.error(error);
+        alert(`게시글을 삭제하는 중 오류가 발생했습니다: ${error.message}`);
+    });
 }

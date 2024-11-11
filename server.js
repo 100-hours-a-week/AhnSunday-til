@@ -26,12 +26,12 @@ app.get('/posts', (req, res) => {
 app.get('/viewPost', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/viewPost.html'));
 });
-// app.get('/editPost', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public/editPost.html'));
-// });
-// app.get('/writePost', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public/writePost.html'));
-// });
+app.get('/editPost', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/editPost.html'));
+});
+app.get('/writePost', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/writePost.html'));
+});
 // app.post('/logout', (req, res) => {
 //     res.sendFile(path.join(__dirname, 'public/login.html'));
 // });
