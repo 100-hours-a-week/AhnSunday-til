@@ -14,12 +14,12 @@ app.get(['/login', '/'], (req, res) => {
 app.get('/regist', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/regist.html'));
 });
-// app.get('/editPassword', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public/editPassword.html'));
-// });
-// app.get('/editUserInfo', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public/editUserInfo.html'));
-// });
+app.get('/editPassword', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/editPassword.html'));
+});
+app.get('/editUserInfo', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/editUserInfo.html'));
+});
 app.get('/posts', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/posts.html'));
 });
