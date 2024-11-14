@@ -131,45 +131,4 @@ document.addEventListener("DOMContentLoaded", function () {
             alert('네트워크 오류 발생');
         }
     });
-
-    // 비밀번호 수정 기능
-    submitButton.addEventListener("click", async function (event) {
-        event.preventDefault();
-        const passwordInput = document.getElementById("password");
-        const confirmPasswordInput = document.getElementById("confirmPassword");
-        const passwordError = document.getElementById("passwordError");
-        const confirmPasswordError = document.getElementById("confirmPasswordError");
-
-        // 에러 메시지 초기화
-        passwordError.textContent = "";
-        confirmPasswordError.textContent = "";
-
-        if (passwordInput.value && passwordInput.value === confirmPasswordInput.value) {
-            const passwordData = { newPassword: passwordInput.value };
-            try {
-                const passwordResponse = await fetch(`http://localhost:3000/users/password/${userId}`, {
-                    method: 'PATCH',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(passwordData)
-                });
-                if (passwordResponse.ok) {
-                    showToast();
-                } else {
-                    const error = await passwordResponse.json();
-                    confirmPasswordError.textContent = error.message;
-                    confirmPasswordError.style.visibility = "visible";
-                }
-            } catch (error) {
-                alert('네트워크 오류 발생');
-            }
-        } else if (!passwordInput.value) {
-            passwordError.textContent = "*비밀번호를 입력해주세요."; // 비밀번호가 비었을 경우
-            passwordError.style.visibility = "visible";
-
-        } else if (passwordInput.value !== confirmPasswordInput.value) {
-            confirmPasswordError.textContent = "*비밀번호가 일치하지 않습니다."; // 비밀번호 불일치
-            confirmPasswordError.style.visibility = "visible";
-
-        }
-    });
 });
