@@ -30,8 +30,25 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = "/editPassword";
     });
 
-    document.getElementById("logout").addEventListener("click", function () {
+    document.getElementById("logout").addEventListener("click", async function () {
         console.log("로그아웃 클릭")
+        try {
+            const response = await fetch('http://localhost:3000/users/logout', {
+                method: 'POST',
+                credentials: 'include' // 세션 쿠키 포함
+            });
+            if (response.ok) {
+                // 클라이언트 세션 초기화
+                sessionStorage.removeItem('user');
+                // 로그인 페이지로 이동
+                window.location.href = "/login";
+            } else {
+                const error = await response.json();
+                alert("로그아웃 실패: " + error.message);
+            }
+        } catch (error) {
+            alert("네트워크 오류 발생");
+        }
         window.location.href = "/login";
     });
 

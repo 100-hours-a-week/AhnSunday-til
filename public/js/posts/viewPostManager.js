@@ -10,8 +10,8 @@ document.addEventListener("DOMContentLoaded", async function() {
     const postImage = document.getElementById("postImage");
     const authorImage = document.getElementById("authorProfileImage");
     
-    const userInfo = await loadUserInfo();
-
+    const  userInfo = await loadUserInfo();
+    
     // 페이지가 로드될 때 특정 게시글의 데이터를 가져오기
     const urlParams = new URLSearchParams(window.location.search);
     const postId = urlParams.get('postId');

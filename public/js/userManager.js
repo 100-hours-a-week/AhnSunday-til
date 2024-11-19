@@ -28,6 +28,28 @@ function closeModal() {
         modalOverlay.style.display = "none";
     }
 }
+// 회원 탈퇴 함수
+async function confirmDelete() {
+    const userInfo = await loadUserInfo(); // 로컬에서 사용자 정보 가져오기
+
+    try {
+        const response = await fetch(`http://localhost:3000/users/${userInfo.userId}`, {
+            method: "DELETE",
+            credentials: "include" // 세션 쿠키 포함
+        });
+
+        if (response.ok) {
+            alert("회원 탈퇴가 완료되었습니다.");
+            sessionStorage.removeItem("user"); // 클라이언트 세션 초기화
+            window.location.href = "/login"; // 로그인 페이지로 이동
+        } else {
+            const error = await response.json();
+            alert("회원 탈퇴 실패: " + error.message);
+        }
+    } catch (error) {
+        alert("네트워크 오류 발생: " + error.message);
+    }
+}
 
 document.addEventListener("DOMContentLoaded", async() => {
     const fileInput = document.getElementById("fileInput");

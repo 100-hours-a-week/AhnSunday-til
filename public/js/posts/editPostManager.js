@@ -1,7 +1,10 @@
 document.addEventListener("DOMContentLoaded", async function() {
     // 게시물 정보 가져오기
     try {
-        const response = await fetch(`http://localhost:3000/posts/${postId}`);
+        const response = await fetch(`http://localhost:3000/posts/${postId}`,{
+            method: "GET",
+            credentials: 'include' // 세션 쿠키를 포함시킴
+        });
         if (!response.ok) {
             throw new Error("게시물을 불러오는 데 실패했습니다.잉~");
         }
@@ -48,6 +51,7 @@ async function uploadImage() {
         const response = await fetch(`http://localhost:2000/upLoadProfile`, {
             method: "POST",
             body: formData,
+            credentials: 'include' // 세션 쿠키를 포함시킴
         });
 
         if (!response.ok) {
@@ -104,6 +108,7 @@ submitButton.addEventListener("click", async function (event) {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(postData),
+            credentials: 'include' // 세션 쿠키를 포함시킴
         });
 
         if (!response.ok) {
