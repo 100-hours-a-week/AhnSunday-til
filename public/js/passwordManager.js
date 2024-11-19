@@ -1,10 +1,12 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
     const submitButton = document.querySelector(".submitButton");
 
     const passwordInput = document.getElementById("password");
     const confirmPasswordInput = document.getElementById("confirmPassword");
     const passwordError = document.getElementById("passwordError");
     const confirmPasswordError = document.getElementById("confirmPasswordError");
+
+    const userInfo = await loadUserInfo();
 
     // 비밀번호 유효성 검사 함수
     function validatePassword(password) {

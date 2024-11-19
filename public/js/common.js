@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     // header 클릭
     document.getElementById("headerBox").addEventListener("click", function () {
-        window.location.href = "/posts";
+        window.location.href = "/posts"; // 로그인 된 상태라면 posts 페이지로 이동
     });
     // 드롭다운 메뉴 클릭
     document.getElementById("editUserInfo").addEventListener("click", function () {
@@ -69,8 +69,44 @@ document.addEventListener("DOMContentLoaded", function () {
     
 });
 
-// 로그인된 사용자 정보 불러오기
+// 로그인 상태 확인 함수
+async function isLoggedIn() {
+    const user = sessionStorage.getItem('user');
+    if (user) {
+        return true; // 세션에 user 정보가 있으면 로그인 상태로 간주
+    }
+
+    // 세션에 정보가 없다면 서버에서 로그인 상태 확인
+    try {
+        const response = await fetch('http://localhost:3000/auth/userInfo', {
+            method: 'GET',
+            credentials: 'include', // 쿠키를 포함하여 요청
+        });
+
+        if (response.ok) {
+            const userInfoData = await response.json();
+            if (userInfoData.data) {
+                sessionStorage.setItem('user', JSON.stringify(userInfoData.data));
+                return true; // 로그인 상태
+            }
+        }
+    } catch (error) {
+        console.error("로그인 상태 확인 실패:", error);
+    }
+    return false; // 로그인되지 않음
+}
+
+
+// 로그인되지 않은 경우 로그인 페이지로 리다이렉션
 async function loadUserInfo() {
+    const loggedIn = await isLoggedIn(); // 로그인 상태 확인
+
+    if (!loggedIn) {
+        alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
+        window.location.href = '/login'; // 로그인 페이지로 리다이렉션
+        return null;
+    }
+
     try {
         const userInfoResponse = await fetch('http://localhost:3000/auth/userInfo', {
             method: 'GET',
@@ -78,22 +114,13 @@ async function loadUserInfo() {
         });
 
         if (!userInfoResponse.ok) {
-            if (userInfoResponse.status === 401) {
-                console.error("로그인 필요: 세션이 만료되었거나 로그인되지 않았습니다.");
-                alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
-                window.location.href = '/login';
-            } else {
-                console.error("서버 응답 실패: ", userInfoResponse.status);
-                throw new Error('Failed to fetch user information.');
-            }
+            console.error("서버 응답 실패: ", userInfoResponse.status);
+            throw new Error('Failed to fetch user information.');
         }
 
         const userInfoData = await userInfoResponse.json();
-
         if (userInfoData.data) {
-            sessionStorage.setItem('user', JSON.stringify(userInfoData.data));
-            const profileImageSrc = document.getElementById("profileImage");
-            profileImageSrc.src = userInfoData.data.profileImage;
+            sessionStorage.setItem('user', JSON.stringify(userInfoData.data)); // 세션에 정보 저장
             return userInfoData.data;
         } else {
             throw new Error('사용자 정보가 없습니다.');

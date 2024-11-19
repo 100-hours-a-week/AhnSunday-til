@@ -51,7 +51,7 @@ async function confirmDelete() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", async() => {
+document.addEventListener("DOMContentLoaded", async () => {
     const fileInput = document.getElementById("fileInput");
     const profileImagePreview = document.getElementById("profileImagePreview");
     const editProfileButton = document.getElementById("editProfile");
@@ -59,8 +59,7 @@ document.addEventListener("DOMContentLoaded", async() => {
     const submitButton = document.querySelector(".submitButton");
     const emailTxt = document.getElementById("email");
 
-    
-    const userInfo = await loadUserInfo();
+    let userInfo = await loadUserInfo();
 
     // 초기 사용자 정보 로드
     nicknameInput.placeholder = userInfo.nickname;
@@ -122,8 +121,10 @@ document.addEventListener("DOMContentLoaded", async() => {
                         errorElement.textContent = nicknameError.message;
                         errorElement.style.visibility = "visible";
                         hasError = true;
+                    } else {
+                        // 닉네임이 성공적으로 변경되면 세션을 새로 로드해서 반영
+                        userInfo = await loadUserInfo(); // 세션에서 최신 정보 반영
                     }
-
                 }
             }
 
@@ -161,9 +162,12 @@ document.addEventListener("DOMContentLoaded", async() => {
                         hasError = true;
                     } else {
                         profileImage.src = uploadedProfileImageUrl; // 프로필 이미지 업데이트
+                        // 프로필 변경 후 세션 업데이트
+                        userInfo.profileImage = uploadedProfileImageUrl; // 세션에 반영된 정보 업데이트
                     }
                 }
             }
+
             if (!hasError) {
                 // 모든 요청 성공 시
                 showToast();
