@@ -123,7 +123,6 @@ document.addEventListener("DOMContentLoaded", async() => {
                         errorElement.style.visibility = "visible";
                         hasError = true;
                     }
-
                 }
             }
 

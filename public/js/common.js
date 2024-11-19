@@ -49,7 +49,6 @@ document.addEventListener("DOMContentLoaded", function () {
         } catch (error) {
             alert("네트워크 오류 발생");
         }
-        window.location.href = "/login";
     });
 
     // 드롭다운 메뉴 토글 기능 연결

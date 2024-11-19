@@ -1,8 +1,8 @@
-document.addEventListener("DOMContentLoaded", async function () {
+document.addEventListener("DOMContentLoaded", function () {
     const postBtn = document.getElementById("postBtn");
     const postsContainer = document.querySelector('.postList');
 
-    const userInfo = await loadUserInfo();
+    const userInfo = loadUserInfo();
 
     // 게시물 작성 버튼
     postBtn.addEventListener("click", function () {
@@ -84,5 +84,5 @@ document.addEventListener("DOMContentLoaded", async function () {
             alert("*서버에 연결할 수 없습니다.");
         }
     }
-    await loadPostList();
+    loadPostList();
 });
