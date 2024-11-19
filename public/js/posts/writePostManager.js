@@ -1,8 +1,10 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
     const titleInput = document.getElementById("title");
     const contentInput = document.getElementById("content");
     const submitButton = document.querySelector(".submitButton");
     const errorText = document.getElementById("errorMessage");
+
+    const userInfo = await loadUserInfo();
 
     // 제목과 내용이 모두 입력될 때 버튼 색상 변경 및 활성화
     function toggleButtonState() {
@@ -23,14 +25,12 @@ document.addEventListener("DOMContentLoaded", function () {
     async function submitPost() {
         const title = titleInput.value.trim();
         const content = contentInput.value.trim();
-        // NOTE: 예시로 사용
-        const userId = 1; 
         const date = formatDateToCustomFormat(new Date()); 
         // NOTE: 이미지 업로드 보류
         const imageUrl = null; 
 
         const newPost = {
-            userId: userId,
+            userId: userInfo.userId,
             title: title,
             content: content,
             date: date,
@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(newPost),
+                credentials: 'include' // 세션 쿠키를 포함시킴
             });
 
             const data = await response.json();
@@ -72,10 +73,4 @@ document.addEventListener("DOMContentLoaded", function () {
             submitPost(); // 게시글 작성 함수 호출
         }
     });
-});
-
-// 뒤로가기 버튼 클릭 시 이전 페이지로 이동
-document.getElementById("goBack").addEventListener("click", () => {
-    console.log("뒤로가기 클릭");
-    window.history.back();
 });

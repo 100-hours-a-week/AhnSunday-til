@@ -83,7 +83,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ email, password })
+                    body: JSON.stringify({ email, password }),
+                    credentials: 'include' // 세션 쿠키 포함
                 });
 
                 const result = await response.json();
@@ -91,10 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 // 응답에 따라 처리
                 if (response.ok) {
                     // 로그인 성공
-                    console.log(result.message); // "로그인 성공"
-                    // 응답받은 사용자 정보 처리
-                    localStorage.setItem('user', JSON.stringify(result.data)); // 사용자 데이터 저장
-                    window.location.href = "./posts"; // 원하는 페이지로 이동
+                    window.location.href = "./posts"; // 게시물리스트 페이지로 이동
                 } else {
                     // 실패 시 메시지 표시
                     passwordError.textContent = result.message;

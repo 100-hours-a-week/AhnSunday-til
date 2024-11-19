@@ -29,106 +29,125 @@ function closeModal() {
     }
 }
 
-// 회원 탈퇴 확인 함수
-async function confirmDelete() {
-    const userId = '4'; // 실제 사용자 ID로 대체
-    try {
-        const response = await fetch(`http://localhost:3000/users/withdraw/${userId}`, {
-            method: 'DELETE'
-        });
-        if (response.ok) {
-            closeModal();
-            window.location.href = '/login'; // 로그인 페이지로 리다이렉트
-        } else {
-            const error = await response.json();
-            alert('회원 탈퇴 실패: ' + error.message);
-        }
-    } catch (error) {
-        alert('서버 오류 발생');
-    }
-}
-
-// 초기 DOM 로드 후 이벤트 설정
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async() => {
     const fileInput = document.getElementById("fileInput");
     const profileImagePreview = document.getElementById("profileImagePreview");
     const editProfileButton = document.getElementById("editProfile");
     const nicknameInput = document.getElementById("nickname");
     const submitButton = document.querySelector(".submitButton");
-    const userId = '4'; 
+    const emailTxt = document.getElementById("email");
 
-    if (editProfileButton && fileInput) {
-        editProfileButton.addEventListener("click", function () {
-            fileInput.click();
-        });
+    
+    const userInfo = await loadUserInfo();
 
-        // 프로필 이미지 변경 기능
-        fileInput.addEventListener("change", async function (event) {
-            const file = event.target.files[0];
+    // 초기 사용자 정보 로드
+    nicknameInput.placeholder = userInfo.nickname;
+    profileImagePreview.src = userInfo.profileImage;
+    profileImage.src = userInfo.profileImage;
+    emailTxt.textContent = userInfo.email;
+    let uploadedProfileImageUrl = userInfo.profileImage; // 기존 프로필 이미지 URL 초기화
+
+    // 프로필 변경 버튼 클릭 시 파일 선택 창 열기
+    editProfileButton.addEventListener("click", () => fileInput.click());
+
+    // 파일 선택 후 미리보기
+    fileInput.addEventListener("change", async (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+
+            // 파일 읽기가 완료되면 미리보기 업데이트
+            reader.onload = function (e) {
+                const imageUrl = e.target.result;
+                profileImagePreview.src = imageUrl;
+                profileImagePreview.style.display = "block";
+            };
+
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // 수정하기 버튼 클릭 시 프로필 이미지 및 닉네임 저장
+    submitButton.addEventListener("click", async (event) => {
+        event.preventDefault();
+
+        const nickname = nicknameInput.value.trim();
+        const errorElement = document.getElementById("nicknameError");
+        let hasError = false;
+
+        // 에러 메시지 초기화
+        errorElement.textContent = "";
+        errorElement.style.visibility = "hidden";
+
+        try {
+            // 닉네임이 입력된 경우 유효성 검사
+            if (nickname && nickname !== userInfo.nickname) {
+                if (nickname.length > 10) {
+                    errorElement.textContent = "*닉네임은 최대 10자 까지 작성 가능합니다.";
+                    errorElement.style.visibility = "visible";
+                    hasError = true;
+                } else {
+                    // 닉네임 업데이트 요청
+                    const nicknameResponse = await fetch(`http://localhost:3000/users/nickname/${userInfo.userId}`, {
+                        method: "PATCH",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ newNickname: nickname }),
+                        credentials: "include"
+                    });
+
+                    if (!nicknameResponse.ok) {
+                        const nicknameError = await nicknameResponse.json();
+                        errorElement.textContent = nicknameError.message;
+                        errorElement.style.visibility = "visible";
+                        hasError = true;
+                    }
+
+                }
+            }
+
+            // 이미지 파일이 선택된 경우 업로드 요청
+            const file = fileInput.files[0];
             if (file) {
                 const formData = new FormData();
                 formData.append("image", file);
-                try {
-                    const uploadResponse = await fetch(`http://localhost:2000/users/profileImg/${userId}`, {
-                        method: 'PUT',
-                        body: JSON.stringify({ newProfileImg: `http://localhost:2000/images/${file.name}` }),
-                        headers: { 'Content-Type': 'application/json' }
+
+                const uploadResponse = await fetch("http://localhost:2000/upLoadProfile", {
+                    method: "POST",
+                    body: formData,
+                    credentials: "include"
+                });
+
+                if (!uploadResponse.ok) {
+                    const error = await uploadResponse.json();
+                    alert("프로필 이미지 업로드 실패: " + error.message);
+                    hasError = true;
+                } else {
+                    const result = await uploadResponse.json();
+                    uploadedProfileImageUrl = result.imageUrl;
+
+                    // 프로필 이미지 URL 업데이트 요청
+                    const imageResponse = await fetch(`http://localhost:3000/users/profileImg/${userInfo.userId}`, {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ newProfileImg: uploadedProfileImageUrl }),
+                        credentials: "include"
                     });
-                    if (uploadResponse.ok) {
-                        profileImagePreview.src = `http://localhost:2000/images/${file.name}`;
-                        profileImagePreview.style.display = "block";
-                        showToast();
+
+                    if (!imageResponse.ok) {
+                        const imageError = await imageResponse.json();
+                        alert("프로필 이미지 변경 실패: " + imageError.message);
+                        hasError = true;
                     } else {
-                        const error = await uploadResponse.json();
-                        alert('프로필 이미지 변경 실패: ' + error.message);
+                        profileImage.src = uploadedProfileImageUrl; // 프로필 이미지 업데이트
                     }
-                } catch (error) {
-                    alert('네트워크 오류 발생');
                 }
             }
-        });
-    }
-
-    submitButton.addEventListener("click", async function (event) {
-        event.preventDefault();
-        const errorElement = document.getElementById("nicknameError");
-        errorElement.textContent = "";  // 에러 메시지 초기화
-        errorElement.style.visibility = "hidden"; 
-    
-        const nickname = nicknameInput.value;
-    
-        // 닉네임을 입력하지 않은 경우
-        if (!nickname) {
-            errorElement.textContent = "*닉네임을 입력해주세요.";
-            errorElement.style.visibility = "visible"; 
-            return;
-        }
-    
-        // 닉네임이 11자 이상인 경우
-        if (nickname.length > 10) {
-            errorElement.textContent = "*닉네임은 최대 10자 까지 작성 가능합니다.";
-            errorElement.style.visibility = "visible";
-            return;
-        }
-    
-        // 서버에서 닉네임 중복 체크
-        const userData = { newNickname: nickname };
-        try {
-            const nicknameResponse = await fetch(`http://localhost:3000/users/nickname/${userId}`, {
-                method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(userData)
-            });
-    
-            if (nicknameResponse.ok) {
+            if (!hasError) {
+                // 모든 요청 성공 시
                 showToast();
-            } else {
-                const error = await nicknameResponse.json();
-                errorElement.textContent = error.message;
-                errorElement.style.visibility = "visible"; 
             }
         } catch (error) {
-            alert('네트워크 오류 발생');
+            alert("네트워크 오류 발생: " + error.message);
         }
     });
 });

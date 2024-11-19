@@ -1,5 +1,4 @@
 const express = require('express');
-const session = require('express-session');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
@@ -32,9 +31,6 @@ app.get('/editPost', (req, res) => {
 app.get('/writePost', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/writePost.html'));
 });
-// app.post('/logout', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public/login.html'));
-// });
 
 // JSON 요청 처리
 app.use(express.json());

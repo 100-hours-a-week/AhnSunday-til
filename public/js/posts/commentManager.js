@@ -21,7 +21,10 @@ async function confirmDelete2() {
 
     const commentId = currentEditingComment.dataset.commentId;
     try {
-        const response = await fetch(`http://localhost:3000/comments/${commentId}`, { method: "DELETE" });
+        const response = await fetch(`http://localhost:3000/comments/${commentId}`, { 
+            method: "DELETE",
+            credentials: 'include' // 세션 쿠키를 포함시킴
+        });
         if (!response.ok) throw new Error("서버에 오류가 발생했습니다.");
 
         const data = await response.json();
@@ -73,6 +76,7 @@ async function updateComment() {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(updatedComment),
+            credentials: 'include' // 세션 쿠키를 포함시킴
         });
 
         if (!response.ok) throw new Error("댓글 수정 실패");
@@ -101,7 +105,9 @@ async function addComment() {
     }
 
     const postId = parseInt(new URLSearchParams(window.location.search).get('postId'));
-    const userId = 1;
+    
+    //여기서 안받아와짐 undefined
+    const userId = (await loadUserInfo()).userId;
 
     const newComment = {
         userId: userId,
@@ -115,6 +121,7 @@ async function addComment() {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newComment),
+            credentials: 'include' // 세션 쿠키를 포함시킴
         });
 
         if (!response.ok) throw new Error("댓글 등록에 실패했습니다.");

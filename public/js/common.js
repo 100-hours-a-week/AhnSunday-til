@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // header 클릭
     document.getElementById("headerBox").addEventListener("click", function () {
         window.location.href = "/posts";
-        console.log("posts로");
     });
     // 드롭다운 메뉴 클릭
     document.getElementById("editUserInfo").addEventListener("click", function () {
@@ -53,7 +52,45 @@ document.addEventListener("DOMContentLoaded", function () {
     
 });
 
-// common.js
+// 로그인된 사용자 정보 불러오기
+async function loadUserInfo() {
+    try {
+        const userInfoResponse = await fetch('http://localhost:3000/auth/userInfo', {
+            method: 'GET',
+            credentials: 'include' // 세션 쿠키 포함
+        });
+
+        if (!userInfoResponse.ok) {
+            if (userInfoResponse.status === 401) {
+                console.error("로그인 필요: 세션이 만료되었거나 로그인되지 않았습니다.");
+                alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
+                window.location.href = '/login';
+            } else {
+                console.error("서버 응답 실패: ", userInfoResponse.status);
+                throw new Error('Failed to fetch user information.');
+            }
+        }
+
+        const userInfoData = await userInfoResponse.json();
+
+        if (userInfoData.data) {
+            sessionStorage.setItem('user', JSON.stringify(userInfoData.data));
+            const profileImageSrc = document.getElementById("profileImage");
+            profileImageSrc.src = userInfoData.data.profileImage;
+            return userInfoData.data;
+        } else {
+            throw new Error('사용자 정보가 없습니다.');
+        }
+    } catch (error) {
+        console.error("loadUserInfo 에러 발생: ", error.message);
+        alert(error.message);
+        return null;
+    }
+}
+
+
+
+// 날짜 포맷
 function formatDateToCustomFormat(date) {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -64,4 +101,3 @@ function formatDateToCustomFormat(date) {
 
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
-module.exports = { formatDateToCustomFormat };

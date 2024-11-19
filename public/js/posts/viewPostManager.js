@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", async function() {
     // 게시글 정보 표시 요소
     const postTitle = document.getElementById("postTitle");
     const postContent = document.getElementById("postContent");
@@ -8,6 +8,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const postDate = document.getElementById("postDate");
     const postAuthor = document.getElementById("userNickname");
     const postImage = document.getElementById("postImage");
+    const authorImage = document.getElementById("authorProfileImage");
+    
+    const userInfo = await loadUserInfo();
 
     // 페이지가 로드될 때 특정 게시글의 데이터를 가져오기
     const urlParams = new URLSearchParams(window.location.search);
@@ -33,20 +36,23 @@ document.addEventListener("DOMContentLoaded", function() {
     // 게시글 상세조회
     async function fetchPostDetails(postId) {
         try {
-            const response = await fetch(`http://localhost:3000/posts/${postId}`);
+            const response = await fetch(`http://localhost:3000/posts/${postId}`,{
+                method: 'GET',
+                credentials: 'include' // 세션 쿠키를 포함시킴
+            });
             if (!response.ok) {
                 throw new Error(`게시글을 불러오는 데 실패했습니다. 상태 코드: ${response.status}`);
             }
 
             const data = await response.json();
             const postData = data.data;
-            
             postTitle.innerHTML = `<strong>${postData.title}</strong>`;
             postContent.innerHTML = postData.content;
             postLikes.innerHTML = postData.likes;
             postViews.innerHTML = postData.views;
             postComments.innerHTML = postData.commentsCnt;  // 댓글 수 표시
             postDate.innerHTML = postData.date;
+            authorImage.src = postData.author.profileImg;
             postAuthor.innerHTML = postData.author.nickname;
             postImage.src = postData.imageUrl;
 
@@ -139,6 +145,7 @@ function confirmDelete() {
     // 백엔드로 삭제 요청 보내기
     fetch(`http://localhost:3000/posts/${postId}`, {
         method: "DELETE",
+        credentials: 'include' // 세션 쿠키를 포함시킴
     })
     .then(response => {
         if (!response.ok) {
