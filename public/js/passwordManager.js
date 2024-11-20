@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (isValid) {
             // 비밀번호 수정 API 호출
             const passwordData = { newPassword: passwordInput.value };
-            const userId = '4'; // 실제 사용자 ID로 변경
+            const userId = userInfo.userId;
 
             try {
                 const response = await fetch(`http://localhost:3000/users/password/${userId}`, {

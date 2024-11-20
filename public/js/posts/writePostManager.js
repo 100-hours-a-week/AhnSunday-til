@@ -21,13 +21,39 @@ document.addEventListener("DOMContentLoaded", async function () {
     titleInput.addEventListener("input", toggleButtonState);
     contentInput.addEventListener("input", toggleButtonState);
 
+    //이미지 업로드 함수
+    async function uploadImage() {
+        if (fileInput.files.length === 0) return null;
+
+        const formData = new FormData();
+        formData.append('image', fileInput.files[0]);
+
+        try {
+            const response = await fetch("http://localhost:2000/upLoadProfile", {
+                method: "POST",
+                body: formData,
+                credentials: "include"
+            });
+
+            if (!response.ok) {
+                throw new Error("이미지 업로드 실패");
+            }
+
+            const data = await response.json();
+            return data.imageUrl;
+        } catch (error) {
+            console.error("이미지 업로드 오류:", error);
+            alert("이미지 업로드에 실패했습니다. 다시 시도해주세요.");
+            return null;
+        }
+    }
     // 게시글 작성 요청 함수
     async function submitPost() {
         const title = titleInput.value.trim();
         const content = contentInput.value.trim();
         const date = formatDateToCustomFormat(new Date()); 
-        // NOTE: 이미지 업로드 보류
-        const imageUrl = null; 
+        
+        const imageUrl = await uploadImage();
 
         const newPost = {
             userId: userInfo.userId,

@@ -33,7 +33,7 @@ async function confirmDelete() {
     const userInfo = await loadUserInfo(); // 로컬에서 사용자 정보 가져오기
 
     try {
-        const response = await fetch(`http://localhost:3000/users/${userInfo.userId}`, {
+        const response = await fetch(`http://localhost:3000/users/withdraw/${userInfo.userId}`, {
             method: "DELETE",
             credentials: "include" // 세션 쿠키 포함
         });
@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // 초기 사용자 정보 로드
     nicknameInput.placeholder = userInfo.nickname;
     profileImagePreview.src = userInfo.profileImage;
-    profileImage.src = userInfo.profileImage;
+    // profileImage.src = userInfo.profileImage;
     emailTxt.textContent = userInfo.email;
     let uploadedProfileImageUrl = userInfo.profileImage; // 기존 프로필 이미지 URL 초기화
 

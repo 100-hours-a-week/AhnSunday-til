@@ -3,9 +3,8 @@
 
 ### 작업현황<br>
 
-#### 수정필요
-- regist 이메일 검사하기
-- 게시물, 댓글 작성 시 상단에 추가
+#### 앞으로 예정
+- DB연결 후 post가져오는것 userId로 author 프로필 가져오기
 
 #### GET
 - [x] /users/logout/{userId} 유저 로그아웃

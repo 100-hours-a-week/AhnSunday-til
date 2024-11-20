@@ -121,6 +121,8 @@ async function loadUserInfo() {
         const userInfoData = await userInfoResponse.json();
         if (userInfoData.data) {
             sessionStorage.setItem('user', JSON.stringify(userInfoData.data)); // 세션에 정보 저장
+            const profileImageSrc= document.getElementById("profileImage");
+            profileImageSrc.src = userInfoData.data.profileImage;
             return userInfoData.data;
         } else {
             throw new Error('사용자 정보가 없습니다.');

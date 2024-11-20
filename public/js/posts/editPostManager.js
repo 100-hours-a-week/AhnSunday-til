@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", async function() {
+    const userInfo = await loadUserInfo();
     // 게시물 정보 가져오기
     try {
         const response = await fetch(`http://localhost:3000/posts/${postId}`,{
@@ -21,7 +22,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 
         // 기존 이미지 URL 설정
         if (post.imageUrl) {
-            document.getElementById("profileImage").src = post.imageUrl;
+            document.getElementById("profileImage").src = userInfo.profileImage;
             existingImageUrl = post.imageUrl;  // 기존 이미지 URL 저장
         } else {
             existingImageUrl = null;  // 기존 이미지가 없으면 null로 설정
